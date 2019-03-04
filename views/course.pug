@@ -1,0 +1,172 @@
+html
+    head
+        style.
+            #services {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            }
+            #services td,
+            #services th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            }
+            #services tr:nth-child(even) {
+            background-color: #f2f2f2;
+            }
+            #services tr:hover {
+            background-color: #ddd;
+            }
+            #services th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color:lightblue;
+            color: darkblue;
+            }
+            #status_r{
+            color: red;
+            }
+            #status_g{
+            color: green;
+            }
+            u{
+            font-size: 22px;
+            }
+            #btn{
+            width: 8em; 
+            height: 2em;
+            font-size: 12px;
+            }
+            input[type="submit"]:hover {
+            border: 2px solid #000;
+            color: #000;
+            }
+            input[type="text"]:hover {
+            border: 2px solid #000;
+            color: #000;
+            }
+            #note, li{
+            padding-left: 25px;
+            text-align: left;
+            color: red;
+            font-family: sans-serif;
+            font-size: 18px;
+            }
+            li {
+            font-size: 14px;
+            }
+
+
+    body
+        center
+            if isAddCourse
+                form(action="/addCourse" method="post")
+                    label Course Title:&nbsp;
+                    input(type="text" name="course" value=data.course)
+                    br
+                    br
+                    label Course Code:&nbsp;
+                    input(type="text" name="code" value=data.code)
+                    br
+                    br
+                    label Course Starts in:&nbsp;
+                    input(type="text" name="dur" value=data.dur)
+                    span &nbsp; minutes
+                    br
+                    br
+                    span &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    input#btn(type="submit" style='background-color: lightgrey' value="Reset" formaction="/clearField")
+                    span &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    input#btn(type="submit" style='background-color: green; color: white' value="Add")
+                    
+            br
+            form(action=homeUrl method="GET")
+                span &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                input(style='background-color: orange; width: 6em; height: 2em' type="submit" value="Home")
+
+            br
+            h4#status_r #{errmsg}
+            br
+            p#note Note -
+                li Course registration automatically get blocked for all users after start time.
+                li A Course will get In-Active if total number of students enrolled are less than 5 after start time.
+                
+            h4 
+                if isRegistration
+                    u All Courses List
+                    p #{JSON.parse(myList).length} out of #{Object.keys(JSON.parse(coursesList)).length} course(s) registered
+                else if isShowMyCrs
+                    u My Courses List
+                    p #{JSON.parse(myList).length} course(s) found
+                else    
+                    u All Courses List
+                    p #{Object.keys(JSON.parse(coursesList)).length} course(s) found
+            br
+            table#services
+                thead 
+                    tr
+                        th Course Title
+                        th Course Code
+                        th Course Starts on
+                        if !isRegistration 
+                            th Status
+                        if isAddCourse
+                            th # Students Enrolled
+                        if isRegistration
+                            th Enroll/Un-enroll
+                            th Registered
+                tbody
+                    if !isShowMyCrs
+                        each crs,key in JSON.parse(coursesList)
+                            tr
+                                td=crs.course
+                                td=key
+                                td=crs.dur
+                                - var st = crs.status;
+                                if !isRegistration 
+                                    if st == "Registrations Open" 
+                                        td #{st}
+                                    else if st == "Active"
+                                        td#status_g #{st}
+                                    else    
+                                        td#status_r #{st}
+
+                                if isAddCourse 
+                                    td=crs.stud
+
+                                if isRegistration
+                                    - var crsEnrolled = JSON.parse(myList).find(item => item === key);
+                                    if st == "Registrations Open" 
+                                        td
+                                            form(action='/enrollCourse', method="post")
+                                                input(type="hidden", name="mycrscode", value=key)
+                                                if (crsEnrolled)
+                                                    input#status_r(type="submit", value="Un-enroll")
+                                                else    
+                                                    input#status_g(type="submit", value="Enroll")
+                                    else
+                                        td Blocked
+                                    
+                                    if crsEnrolled
+                                        td#status_g Yes
+                                    else
+                                        td#status_r No
+        
+                    else
+                        - var fullList = JSON.parse(coursesList);
+                        each crs in JSON.parse(myList)
+                            tr
+                                td=fullList[crs].course
+                                td=crs
+                                td=fullList[crs].dur
+                                - var st =fullList[crs].status;
+                                if st == "Registrations Open" 
+                                    td #{st}
+                                else if st == "Active"
+                                    td#status_g #{st}
+                                else    
+                                    td#status_r #{st}
+
+                                
+                        

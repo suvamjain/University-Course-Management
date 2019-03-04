@@ -1,0 +1,53 @@
+html
+    head
+        style. 
+            #btn{
+            width: 8em; 
+            height: 2em;
+            font-size: 12px;
+            }
+            input[type="submit"]:hover {
+            border: 2px solid #000;
+            color: #000;
+            }
+            input[type="text"]:hover, 
+            input[type="password"]:hover {
+            border: 2px solid #000;
+            color: #000;
+            }
+        center
+            h1(style = 'color: green; font-family:georgia') University Course Management System
+            h2 Registration Page
+    body
+        center
+            form(method="post")
+                label Username:&nbsp;
+                input(type="text" name="usr" value=data.usr)
+                br
+                br
+                label Password:&nbsp;
+                input(type="password" name="pwd" value=data.pwd)  
+                br 
+                br 
+                label Confirm Password:&nbsp;
+                input(type="password" name="cpwd" value=data.cpwd)    
+                br 
+                br 
+                span &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                input#btn(style='background-color:darkblue; color:white' type="submit", value="Register", formaction = "/register")
+                span &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                input#btn(type="submit" style='background-color: lightgrey' value="Reset" formaction = "/signUp")
+                br 
+                br 
+                span &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                input#btn(style='background-color:green; color:white' type="submit", value="Sign In", formaction = "/auth")
+                h4(style='color:red') #{errmsg}
+
+    footer 
+        center 
+            br
+            br
+            br
+            br
+            br
+            h5 Developed By - SUVAM JAIN | VIT CHENNAI

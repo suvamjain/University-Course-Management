@@ -1,0 +1,48 @@
+html
+    head
+        style.
+            #btn{
+            width: 10em; 
+            height: 4em;
+            font-size: 14px;
+            }
+            input[type="submit"]:hover {
+            border: 2px solid yellow;
+            color: #000;
+            }
+        center 
+            h1(style = 'color: green; font-family:georgia') University Course Management System
+            h2 Welcome to Home Page
+    body
+        center
+            h3(style='color: maroon; font-family: georgia') Hello #{userName}
+            br
+            br
+            br
+            br
+            form
+                if userName === "admin"
+                    span &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    input#btn(style='background-color:darkblue; color:white' type="submit" value="Add New Course" formaction="/addCourse" formmethod="post") 
+                    span &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    input#btn(style='background-color:brown; color:white' type="submit" value="Modify Course" formaction="/searchCourse" formmethod="get")
+                
+        
+                if userName !== "admin"
+                    span &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    input#btn(style='background-color:darkgreen; color:white' type="submit" value="Register Course" formaction="/registerCourse" formmethod="post")
+                    span &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    input#btn(style='background-color:lightblue' type="submit" value="My Courses" formaction="/myCourseList" formmethod="post")
+                    span &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    input#btn(style='background-color:brown; color:white' type="submit" value="Search Course" formaction="/searchCourse" formmethod="get")
+                span &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                input#btn(style='background-color:red; color:white' type="submit" value="Log Out" formaction="/logout" formmethod="post")
+
+    footer 
+        center 
+            br
+            br
+            br
+            br
+            br
+            h5 Developed By - SUVAM JAIN | VIT CHENNAI

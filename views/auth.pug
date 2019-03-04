@@ -1,0 +1,64 @@
+html
+    head
+        style. 
+            #btn{
+            width: 8em; 
+            height: 2em;
+            font-size: 12px;
+            }
+            input[type="submit"]:hover {
+            border: 2px solid #000;
+            color: #000;
+            }
+            input[type="text"]:hover, 
+            input[type="password"]:hover {
+            border: 2px solid #000;
+            color: #000;
+            }
+            #note, li{
+            padding-left: 25px;
+            text-align: left;
+            color: red;
+            font-family: sans-serif;
+            font-size: 18px;
+            }
+            li {
+            font-size: 16px;
+            }
+        center
+            h1(style = 'color: green; font-family:georgia') University Course Management System
+            h2 Login Page
+    body
+        center
+            br
+            br
+            form(method="post")
+                label Username:&nbsp;
+                input(type="text" name="usr" value=data.usr)
+                br
+                br
+                label Password:&nbsp;
+                input(type="password" name="pwd" value=data.pwd)
+                br 
+                br 
+                span &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                input#btn(style='background-color:darkblue; color:white' type="submit", value="Sign In", formaction = "/signIn")
+                span &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                input#btn(type="submit" style='background-color: lightgrey' value="Reset", formaction = "/auth")
+                br
+                br
+                span &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                input#btn(style='background-color:green; color:white' type="submit", value="Sign Up", formaction = "/signUp")
+                h4(style='color:red') #{errmsg}
+            
+            p#note Note - 
+                li To login with admin previleges  use 'admin' as username and password.
+        
+    footer 
+        center 
+            br
+            br
+            br
+            br
+            br
+            h5 Developed By - SUVAM JAIN | VIT CHENNAI
